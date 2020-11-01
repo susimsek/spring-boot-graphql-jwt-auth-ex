@@ -1,0 +1,41 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+extend type Query {
+    listUser: [User]
+    getUser(id: ID!): User
+}
+
+extend type Mutation {
+    login(input: LoginRequest!) : JwtResponse!
+    createUser(input: UserCreateRequest!) : User!
+    deleteUser(id: ID!) : Boolean!
+}
+
+type User {
+    id: ID!
+    username: String!
+    password: String!
+    email: String!
+    role: Role!
+}
+
+type JwtResponse {
+    token: String!
+    type: String!
+}
+
+input UserCreateRequest {
+    username: String!
+    password: String!
+    email: String!
+}
+
+input LoginRequest {
+    username: String!
+    password: String!
+}
+
+

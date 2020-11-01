@@ -1,0 +1,30 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+extend type Query {
+    listAgency: [Agency]
+    getAgency(id: ID!): Agency
+}
+
+extend type Mutation {
+    createAgency(input: AgencyCreateRequest!) : Agency!
+    deleteAgency(id: ID!) : Boolean!
+    updateAgency(id: ID!, input: AgencyUpdateRequest!) : Agency!
+}
+
+type Agency {
+    id: ID!
+    name: String!
+    rating: Float
+}
+
+input AgencyCreateRequest {
+    name: String!
+    rating: Float
+}
+
+input AgencyUpdateRequest {
+    rating: Float
+}

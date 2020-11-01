@@ -1,0 +1,42 @@
+version: "3"
+services:
+  app:
+    build: .
+    container_name: app
+    restart: ${RESTART_POLICY}
+    environment:
+      - TZ
+      - SERVER_PORT
+      - API_BASE_PATH
+      - POSTGRES_HOST
+      - POSTGRES_PORT
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+      - JWT_SECRET
+      - JWT_EXPIRATIONMS
+      - ADMIN_USER
+      - ADMIN_PASS
+      - ACTIVE_PROFILE
+    ports:
+      - ${SERVER_PORT}:${SERVER_PORT}
+
+  postgresql:
+    image: postgres:11.4
+    container_name: postgresql
+    restart: ${RESTART_POLICY}
+    environment:
+      - TZ
+      - POSTGRES_USER
+      - POSTGRES_PASSWORD
+      - POSTGRES_DB
+    command: "
+                postgres
+                  -c max_connections=200
+                  -c logging_collector=on
+                  -c log_min_messages=LOG
+                  -c log_directory=/var/log/postgresql"
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgresql-data:/var/lib/postgresql/data:Z

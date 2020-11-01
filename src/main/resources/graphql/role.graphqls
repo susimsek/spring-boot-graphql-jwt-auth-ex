@@ -1,0 +1,20 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+extend type Query {
+    listRole: [Role]
+    getRole(id: ID!): Role
+}
+
+type Role {
+    id: ID!
+    name: RoleName!
+}
+
+enum RoleName {
+    USER
+    ADMIN
+}
+
